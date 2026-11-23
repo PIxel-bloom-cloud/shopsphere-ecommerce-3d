@@ -6,18 +6,16 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import { rateLimit } from 'express-rate-limit';
 
 import authRoutes from './routes/auth.js';
 import productRoutes from './routes/products.js';
 import orderRoutes from './routes/orders.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const frontendPath = path.resolve(
-  __dirname,
-  '../../frontend/dist'
+  process.cwd(),
+  'frontend',
+  'dist'
 );
 
 if (
@@ -72,7 +70,7 @@ app.use('/api', (_req, res) => {
   });
 });
 
-// Serve React frontend
+// Serve frontend static files
 app.use(express.static(frontendPath));
 
 // React Router fallback
